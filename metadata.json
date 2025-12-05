@@ -1,0 +1,5 @@
+{
+  "name": "Deli Bross Manager k",
+  "description": "Sistema de gestión de ventas automatizado para Deli Bross. Control de pedidos, pagos QR/Efectivo, gastos y análisis de ventas.",
+  "requestFramePermissions": []
+}
