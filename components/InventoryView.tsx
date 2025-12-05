@@ -20,14 +20,19 @@ const InventoryView: React.FC<InventoryViewProps> = ({ inventory, onUpdateInvent
 
   const filteredItems = inventory.filter(item => {
     let matchesCat = true;
-    if (filterCat === 'All') matchesCat = true;
-    else if (filterCat === 'Envases') {
-        matchesCat = item.name.toLowerCase().includes('envase') || item.name.toLowerCase().includes('caja');
+    
+    if (filterCat === 'All') {
+      matchesCat = true;
+    } else if (filterCat === 'Envases') {
+      matchesCat = item.name.toLowerCase().includes('envase') || item.name.toLowerCase().includes('caja');
     } else {
-        // Exclude envases from main categories if possible, or just exact match
-        matchesCat = item.category === filterCat;
-        // The check filterCat !== 'Envases' is redundant because it's handled in the else if above
-        if (filterCat !== 'Otro' && (item.name.toLowerCase().includes('envase'))) matchesCat = false; 
+      // Safe comparison ensuring we don't compare 'Envases' string to category enum directly if logic leaks
+      matchesCat = item.category === filterCat;
+      
+      // Optional: Explicitly exclude envases from 'Otro' if you want strict separation
+      if (filterCat === 'Otro' && (item.name.toLowerCase().includes('envase'))) {
+         matchesCat = false; 
+      }
     }
 
     const matchesSearch = item.name.toLowerCase().includes(search.toLowerCase());
