@@ -16,7 +16,10 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
-      sourcemap: false
+      sourcemap: false,
+      // Ensure we don't minify too aggressively if debugging is needed, but default is usually fine.
+      // Explicitly setting target ensures compatibility.
+      target: 'es2020'
     }
   };
 });
